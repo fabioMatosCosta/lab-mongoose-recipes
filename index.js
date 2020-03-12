@@ -11,3 +11,54 @@ mongoose
   })
   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
   .catch(err => console.error('Error connecting to mongo', err));
+
+Recipe
+  .create({
+    title: "Falafel",
+    level: "Amateur Chef",
+    ingredients: ["chickpeas", "herbs"],
+    cuisine: "Middle Eastern",
+    dishType: "Snack",
+    duration: 20,
+    creater: "Yvana & Fábio",
+  })
+  .then((recipe) => {
+    console.log("Recipe created: ", recipe.title)
+  })
+  .catch((error)=>{
+    console.log("Blip Blop Blip, does not compute!", error)
+  })
+
+  Recipe.insertMany(data)
+    .then((recipes)=>{
+      console.log("Recipes imported:", recipes.title);
+      return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    })
+    .then((recipe)=>{
+      console.log("Recipe updated:", recipe)
+    })
+    .catch((error)=>{
+      console.log("Blip Blop Blip, does not compute!", error);
+    })
+
+    // Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+    //   .then((recipe)=>{
+    //     console.log("Recipe updated:", recipe)
+    //   })
+    //   .catch((error)=>{
+    //     console.log("Blip Blop Blip, does not compute!", error)
+    //   })
+
+    Recipe
+    .deleteOne({title: "Carrot Cake"})
+    .then((recipe)=>{
+      console.log("Recipe deleted:", recipe)
+    })
+    .catch((error)=>{
+      console.log("Blip Blop Blip, does not compute!", error);
+    })
+
+    mongoose.connection.close(() => {
+      console.log('You have been terminated! Hasta la vista baby!');
+      process.exit(0);
+    });
