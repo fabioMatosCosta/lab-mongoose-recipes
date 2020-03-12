@@ -32,7 +32,8 @@ Recipe
   Recipe.insertMany(data)
     .then((recipes)=>{
       console.log("Recipes imported:", recipes.title);
-      return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
+      return Recipe
+      .updateOne({title: "Rigatoni alla Genovese"}, {duration: 100})
     })
     .then((recipe)=>{
       console.log("Recipe updated:", recipe)
@@ -40,15 +41,7 @@ Recipe
     .catch((error)=>{
       console.log("Blip Blop Blip, does not compute!", error);
     })
-
-    // Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100})
-    //   .then((recipe)=>{
-    //     console.log("Recipe updated:", recipe)
-    //   })
-    //   .catch((error)=>{
-    //     console.log("Blip Blop Blip, does not compute!", error)
-    //   })
-
+    
     Recipe
     .deleteOne({title: "Carrot Cake"})
     .then((recipe)=>{
